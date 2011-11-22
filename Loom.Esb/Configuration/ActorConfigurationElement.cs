@@ -28,7 +28,7 @@ namespace Loom.Esb.Configuration
         public SubscriptionConfigurationElementCollection Subscriptions
         {
             get { return base[SubscriptionsElementName] as SubscriptionConfigurationElementCollection; }
-            set { base[SubscriptionsElementName] = value; }
+            //set { base[SubscriptionsElementName] = value; }
         }
         
         [ConfigurationProperty("publications")]
@@ -36,7 +36,7 @@ namespace Loom.Esb.Configuration
         public PublicationConfigurationElementCollection Publications
         {
             get { return base["publications"] as PublicationConfigurationElementCollection; }
-            set { base["publications"] = value; }
+            //set { base["publications"] = value; }
         }
     }
 }

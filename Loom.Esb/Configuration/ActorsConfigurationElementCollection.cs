@@ -18,5 +18,10 @@ namespace Loom.Esb.Configuration
         {
             BaseAdd(actor);
         }
+
+        public new ActorConfigurationElement this[string name]
+        {
+            get { return BaseGet(name) as ActorConfigurationElement; }
+        }
     }
 }

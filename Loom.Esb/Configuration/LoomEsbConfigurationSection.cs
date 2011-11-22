@@ -4,12 +4,24 @@
 
     public class LoomEsbConfigurationSection : ConfigurationSection
     {
+        [ConfigurationProperty("xmlns", IsRequired = false)]
+        public string Xmlns
+        {
+            get { return (string)base["xmlns"]; }
+        }
+
+        [ConfigurationProperty("transports")]
+        public TransportsConfigurationElement Transports
+        {
+            get { return base["transports"] as TransportsConfigurationElement; }
+        }
+
         [ConfigurationProperty("actors")]
         [ConfigurationCollection(typeof(ActorConfigurationElement), AddItemName = "actor")]
         public ActorsConfigurationElementCollection Actors
         {
             get { return base["actors"] as ActorsConfigurationElementCollection; }
-            set { base["actors"] = value; }
+            //set { base["actors"] = value; }
         }
 
         [ConfigurationProperty("topics")]
@@ -17,7 +29,7 @@
         public TopicsConfigurationElementCollection Topics
         {
             get { return base["topics"] as TopicsConfigurationElementCollection; }
-            set { base["topics"] = value; }
+            //set { base["topics"] = value; }
         }
     }
 }

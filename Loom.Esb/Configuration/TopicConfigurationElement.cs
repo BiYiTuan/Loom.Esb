@@ -4,6 +4,8 @@ namespace Loom.Esb.Configuration
 
     public class TopicConfigurationElement : ConfigurationElement
     {
+        private const string NamePropertyName = "name";
+
         public TopicConfigurationElement()
         {
         }
@@ -12,8 +14,6 @@ namespace Loom.Esb.Configuration
         {
             Name = name;
         }
-
-        private const string NamePropertyName = "name";
 
         [ConfigurationProperty(NamePropertyName, IsKey = true)]
         public string Name

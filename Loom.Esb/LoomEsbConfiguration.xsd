@@ -1,0 +1,127 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="LoomEsbConfiguration"
+    targetNamespace="urn:loom-esb:configuration:1.0"
+    elementFormDefault="qualified"
+    xmlns="urn:loom-esb:configuration:1.0"
+    xmlns:mstns="urn:loom-esb:configuration:1.0"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+>
+  <xs:element name="loom.esb">
+  </xs:element>
+
+  <xs:element name="transports">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="msmq" minOccurs="0" maxOccurs="1" />
+      </xs:sequence>
+      <xs:attribute name="default" use="optional" type="transportTypes"  />
+    </xs:complexType>
+  </xs:element>
+
+  <xs:simpleType name="transportTypes">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="msmq" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:element name="msmq">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="mappings" minOccurs="0" maxOccurs="1" />
+      </xs:sequence>
+      <xs:attribute name="conventionBasedNaming" use="optional" type="xs:boolean" default="true" />
+      <xs:attribute name="defaultServer" use="optional" type="xs:string" default="localhost" />
+      <xs:attribute name="delivery" use="optional" type="deliveryMethods" default="Direct" />
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="mappings">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="map" minOccurs="0" maxOccurs="unbounded" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="mapping">
+    <xs:complexType>
+      <xs:attribute name="topic" type="xs:string" use="required" />
+      <xs:attribute name="to" type="xs:string" use="required" />
+    </xs:complexType>
+  </xs:element>
+
+  <xs:simpleType name="deliveryMethods">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Direct" />
+      <xs:enumeration value="Brokered" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:element name="actors">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="actor" minOccurs="0" maxOccurs="unbounded" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="actor">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="publications" minOccurs="0" maxOccurs="1" />
+        <xs:element ref="subscriptions" minOccurs="0" maxOccurs="1" />
+      </xs:sequence>
+      <xs:attribute name="name" use="required" type="xs:string" />
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="publications">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="publication" minOccurs="0" maxOccurs="unbounded" />
+        <xs:element name="clear" minOccurs="0" maxOccurs="unbounded" />
+        <xs:element name="remove" minOccurs="0" maxOccurs="unbounded" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="publication">
+    <xs:complexType>
+      <xs:attribute name="topic" use="required" type="xs:string" />
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="subscriptions">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="subscription" minOccurs="0" maxOccurs="unbounded" />
+        <xs:element name="clear" minOccurs="0" maxOccurs="unbounded" />
+        <xs:element name="remove" minOccurs="0" maxOccurs="unbounded">
+          <xs:complexType>
+            <xs:attribute name="topic" use="required" type="xs:string" />
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="subscription">
+    <xs:complexType>
+      <xs:attribute name="topic" use="required" type="xs:string" />
+    </xs:complexType>
+  </xs:element>
+  
+  <xs:element name="topics">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="topic" minOccurs="0" maxOccurs="unbounded" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="topic">
+    <xs:complexType>
+      <xs:attribute name="name" use="required" type="xs:string" />
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

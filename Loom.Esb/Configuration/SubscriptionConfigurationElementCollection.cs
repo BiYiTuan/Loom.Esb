@@ -1,8 +1,9 @@
 namespace Loom.Esb.Configuration
 {
+    using System.Collections.Generic;
     using System.Configuration;
 
-    public class SubscriptionConfigurationElementCollection : ConfigurationElementCollection
+    public class SubscriptionConfigurationElementCollection : ConfigurationElementCollection, IEnumerable<SubscriptionConfigurationElement>
     {
         protected override ConfigurationElement CreateNewElement()
         {
@@ -17,6 +18,14 @@ namespace Loom.Esb.Configuration
         public void Add(SubscriptionConfigurationElement subscription)
         {
             BaseAdd(subscription);
+        }
+
+        public new IEnumerator<SubscriptionConfigurationElement> GetEnumerator()
+        {
+            for(var i = 0; i < Count; i++)
+            {
+                yield return BaseGet(i) as SubscriptionConfigurationElement;
+            }
         }
     }
 }
