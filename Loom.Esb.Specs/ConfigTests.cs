@@ -12,7 +12,7 @@
         [Test]
         public void CanReadConfigSection()
         {
-            var section = ConfigurationManager.GetSection("loom.esb") as LoomEsbConfigurationSection;
+            var section = ConfigurationManager.GetSection(LoomEsbConfigurationSection.SectionName) as LoomEsbConfigurationSection;
             Assert.NotNull(section);
             Assert.NotNull(section.Actors);
             Assert.NotNull(section.Topics);
@@ -21,24 +21,15 @@
             Assert.AreEqual(2, section.Topics.Count);
         }
 
-        private LoomEsbConfigurationSection _section;
-        private ActorConfigurationElement _actorA;
-        private TopicConfigurationElement _yellowTopic;
-
-        [SetUp]
-        public void Setup()
-        {
-            _section = new LoomEsbConfigurationSection();
-        }
 
         [Test]
         public void CanAddAnActor()
         {
-            _actorA = new ActorConfigurationElement("actorA");
-
-            _section.Actors.Add(_actorA);
-            Assert.AreEqual(1, _section.Actors.Count);
-            Assert.AreEqual(_actorA, _section.Actors.Cast<ActorConfigurationElement>().First());
+            var _actorA = new ActorConfigurationElement("actorA");
+            var section = new LoomEsbConfigurationSection();
+            section.Actors.Add(_actorA);
+            Assert.AreEqual(1, section.Actors.Count);
+            Assert.AreEqual(_actorA, section.Actors.Cast<ActorConfigurationElement>().First());
         }
 
         [Test]
@@ -46,39 +37,44 @@
         {     
             var actorB = new ActorConfigurationElement();
             actorB.Name = "actorB";
-            _section.Actors.Add(actorB);
+            var section = new LoomEsbConfigurationSection();
+            section.Actors.Add(actorB);
         }
 
         [Test]
         public void CanAddATopic()
         {
             var greenTopic = new TopicConfigurationElement("green");
-            _section.Topics.Add(greenTopic);
-            Assert.AreEqual(1, _section.Topics.Count);
-            Assert.AreEqual(greenTopic, _section.Topics.Cast<TopicConfigurationElement>().First());
+            var section = new LoomEsbConfigurationSection();
+            section.Topics.Add(greenTopic);
+            Assert.AreEqual(1, section.Topics.Count);
+            Assert.AreEqual(greenTopic, section.Topics.Cast<TopicConfigurationElement>().First());
         }
 
         [Test]
         public void CanAddAnotherTopic()
         {
-            _yellowTopic = new TopicConfigurationElement();
-            _yellowTopic.Name = "yellow";
-            _section.Topics.Add(_yellowTopic);
+            var yellowTopic = new TopicConfigurationElement();
+            yellowTopic.Name = "yellow";
+            var section = new LoomEsbConfigurationSection();
+            section.Topics.Add(yellowTopic);
         }
 
         [Test]
         public void CanAddASubscription()
         {
             var aFirstSubscription = new SubscriptionConfigurationElement("green");
-            _actorA.Subscriptions.Add(aFirstSubscription);
+            var actor = new ActorConfigurationElement("actor");
+            actor.Subscriptions.Add(aFirstSubscription);
         }
 
         [Test]
-        public void CanAddAnotherSubscription()
+        public void CanAddTwoSubscription()
         {
             var aSecondSubscription = new SubscriptionConfigurationElement();
             aSecondSubscription.Topic = "red";
-            _actorA.Subscriptions.Add(aSecondSubscription);
+            var actor = new ActorConfigurationElement("actor");
+            actor.Subscriptions.Add(aSecondSubscription);
          }
 
         [Test]
@@ -93,7 +89,8 @@
         public void CanAddAPublication()
         {
             var aFirstPublication = new PublicationConfigurationElement("green");
-            _actorA.Publications.Add(aFirstPublication);
+            var actor = new ActorConfigurationElement("actor");
+            actor.Publications.Add(aFirstPublication);
         }
 
         [Test]
@@ -101,14 +98,17 @@
         {
             var aSecondPublication = new PublicationConfigurationElement();
             aSecondPublication.Topic = "red";
-            _actorA.Publications.Add(aSecondPublication);
+            var actor = new ActorConfigurationElement("actor");
+            actor.Publications.Add(aSecondPublication);
         }
 
         [Test]
         public void CanAddAThirdPublication()
         {
-            var aThirdPublication = new PublicationConfigurationElement(_yellowTopic);
-            _actorA.Publications.Add(aThirdPublication);
+            var topic = new TopicConfigurationElement("topic");
+            var aThirdPublication = new PublicationConfigurationElement(topic);
+            var actor = new ActorConfigurationElement("actor");
+            actor.Publications.Add(aThirdPublication);
         }
     }
 }

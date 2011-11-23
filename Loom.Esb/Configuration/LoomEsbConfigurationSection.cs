@@ -4,6 +4,8 @@
 
     public class LoomEsbConfigurationSection : ConfigurationSection
     {
+        public const string SectionName = "loom.esb";
+
         [ConfigurationProperty("xmlns", IsRequired = false)]
         public string Xmlns
         {
