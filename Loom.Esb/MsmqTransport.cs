@@ -2,7 +2,6 @@
 {
     using System;
     using System.Messaging;
-    using System.Transactions;
 
     public class MsmqTransport : ITransport, IDisposable
     {
@@ -13,21 +12,48 @@
         public MsmqTransport()
         {
             _messageQueue = new MessageQueue(".\\private$\\TestQueue");
-            _messageQueue.ReceiveCompleted += OnMessageReceived;
-            _messageQueue.BeginReceive();
+            _messageQueue.PeekCompleted += OnMessagePeeked;
+            _messageQueue.BeginPeek();
+            
         }
 
-        private void OnMessageReceived(object sender, ReceiveCompletedEventArgs e)
+        private void OnMessagePeeked(object sender, PeekCompletedEventArgs e)
         {
-            MessageReceived(this, new MessageReceivedEventArgs(e.Message));
+            var transaction = new MessageQueueTransaction();
+            try
+            {
+                transaction.Begin();
+                var message = _messageQueue.Receive(transaction);
+                MessageReceived(this, new MessageReceivedEventArgs(message));
+            }
+            catch
+            {
+                transaction.Abort();
+                throw;
+            }
+            finally
+            {
+                transaction.Dispose();
+            }
         }
 
         public void Send(object message)
         {
-            using (var tx = new TransactionScope(TransactionScopeOption.Required))
+            var transaction = new MessageQueueTransaction();
+            try
             {
-                _messageQueue.Send(message);
-                tx.Complete();
+                transaction.Begin();
+                _messageQueue.Send(message, transaction);
+                transaction.Commit();
+            }
+            catch
+            {
+                transaction.Abort();
+                throw;
+            }
+            finally
+            {
+                transaction.Dispose();
             }
         }
 
