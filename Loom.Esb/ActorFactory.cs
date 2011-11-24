@@ -1,15 +1,16 @@
 namespace Loom.Esb
 {
     using System.Linq;
-    using Configuration;
 
     public class ActorFactory
     {
-        private readonly LoomEsbConfigurationSection _configurationSection;
+        private readonly Configuration.LoomEsbConfigurationSection _configurationSection;
+        private readonly ITransport _transport;
 
         public ActorFactory(Configuration.LoomEsbConfigurationSection configurationSection)
         {
             _configurationSection = configurationSection;
+            _transport = new MsmqTransport();
         }
 
         public Actor CreateActor(string actorName)
@@ -18,7 +19,7 @@ namespace Loom.Esb
             if (configuration == null)
                 throw new NoActorConfigurationException();
 
-            var actor = new Actor(actorName);
+            var actor = new Actor(actorName, _transport);
             actor.Publications.AddRange(
                 configuration.Publications.Select(conf => new Publication(conf.Topic)));
             actor.Subscriptions.AddRange(

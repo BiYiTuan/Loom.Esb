@@ -61,6 +61,9 @@
     <Compile Include="Configuration\TopicConfigurationElement.cs" />
     <Compile Include="Configuration\TopicsConfigurationElementCollection.cs" />
     <Compile Include="Configuration\TransportsConfigurationElement.cs" />
+    <Compile Include="ITransport.cs" />
+    <Compile Include="MessageReceivedEventArgs.cs" />
+    <Compile Include="MsmqTransport.cs" />
     <Compile Include="NoActorConfigurationException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Publication.cs" />

@@ -25,11 +25,11 @@
         [Test]
         public void CanAddAnActor()
         {
-            var _actorA = new ActorConfigurationElement("actorA");
+            var actor = new ActorConfigurationElement("actorA");
             var section = new LoomEsbConfigurationSection();
-            section.Actors.Add(_actorA);
+            section.Actors.Add(actor);
             Assert.AreEqual(1, section.Actors.Count);
-            Assert.AreEqual(_actorA, section.Actors.Cast<ActorConfigurationElement>().First());
+            Assert.AreEqual(actor, section.Actors.Cast<ActorConfigurationElement>().First());
         }
 
         [Test]
