@@ -11,7 +11,7 @@ namespace Loom.Esb.Configuration
 
         protected override object GetElementKey(ConfigurationElement element)
         {
-            return ((TopicConfigurationElement) element).Name;
+            return ((TopicConfigurationElement)element).Name;
         }
 
         public void Add(TopicConfigurationElement topic)

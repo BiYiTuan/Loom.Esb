@@ -1,13 +1,12 @@
 namespace Loom.Esb
 {
     using System;
-    using System.Messaging;
 
     public class MessageReceivedEventArgs : EventArgs
     {
-        public Message Message { get; private set; }
+        public object Message { get; private set; }
 
-        public MessageReceivedEventArgs(Message message)
+        public MessageReceivedEventArgs(object message)
         {
             Message = message;
         }

@@ -31,6 +31,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="StyleCop">
+      <HintPath>..\packages\StyleCop.4.6.3.0\lib\net35\StyleCop.dll</HintPath>
+    </Reference>
+    <Reference Include="StyleCop.CSharp">
+      <HintPath>..\packages\StyleCop.4.6.3.0\lib\net35\StyleCop.CSharp.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
@@ -61,8 +67,13 @@
     <Compile Include="Configuration\TopicConfigurationElement.cs" />
     <Compile Include="Configuration\TopicsConfigurationElementCollection.cs" />
     <Compile Include="Configuration\TransportsConfigurationElement.cs" />
-    <Compile Include="ITransport.cs" />
+    <Compile Include="IMessageHandler.cs" />
+    <Compile Include="IPublicationTransport.cs" />
+    <Compile Include="ISubscriptionTransport.cs" />
+    <Compile Include="Message.cs" />
+    <Compile Include="MessageHandlerCollection.cs" />
     <Compile Include="MessageReceivedEventArgs.cs" />
+    <Compile Include="MsmqPublicationTransport.cs" />
     <Compile Include="MsmqTransport.cs" />
     <Compile Include="NoActorConfigurationException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -75,6 +86,7 @@
     <None Include="LoomEsbConfiguration.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

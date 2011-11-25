@@ -23,7 +23,6 @@
         public ActorsConfigurationElementCollection Actors
         {
             get { return base["actors"] as ActorsConfigurationElementCollection; }
-            //set { base["actors"] = value; }
         }
 
         [ConfigurationProperty("topics")]
@@ -31,7 +30,6 @@
         public TopicsConfigurationElementCollection Topics
         {
             get { return base["topics"] as TopicsConfigurationElementCollection; }
-            //set { base["topics"] = value; }
         }
     }
 }

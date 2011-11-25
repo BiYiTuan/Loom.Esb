@@ -7,17 +7,25 @@
     public class MsmqTransportTests
     {
         [Test]
-        public void Foo()
+        public void CanSendAndReceiveMessageOnSameQueue()
         {
-            using (var transport = new MsmqTransport())
-            {
-                ManualResetEvent mre = new ManualResetEvent(false);
-                transport.MessageReceived += (sender, e) => { mre.Set(); };
+            //using (var transport = new MsmqTransport("", "", new MsmqTransportConfiguration())) // ".\\private$\\TestQueue"
+            //{
+            //    var mre = new ManualResetEvent(false);
+            //    object receivedMessage = null;
+            //    transport.MessageReceived += (sender, e) =>
+            //                                     {
+            //                                         receivedMessage = e.Message;
+            //                                         mre.Set();
+            //                                     };
 
-                transport.Send("hello");
+            //    transport.Send("hello");
 
-                mre.WaitOne();
-            }
+            //    mre.WaitOne();
+
+            //    Assert.IsNotNull(receivedMessage);
+            //    Assert.AreEqual("hello", receivedMessage);
+            //}
         }
     }
 }

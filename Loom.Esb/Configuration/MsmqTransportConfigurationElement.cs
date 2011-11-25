@@ -6,14 +6,14 @@ namespace Loom.Esb.Configuration
     {
         protected override void InitializeDefault()
         {
-            ConventionBasedMapping = true;
+            ConventionBasedNaming = true;
             DefaultServer = "localhost";
             Delivery = DeliveryMethod.Direct;
             base.InitializeDefault();
         }
 
         [ConfigurationProperty("conventionBasedNaming", IsRequired = false)]
-        public bool ConventionBasedMapping
+        public bool ConventionBasedNaming
         {
             get { return (bool)base["conventionBasedNaming"]; }
             set { base["conventionBasedNaming"] = value; }

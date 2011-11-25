@@ -4,14 +4,9 @@ namespace Loom.Esb.Configuration
 
     public class ActorsConfigurationElementCollection : ConfigurationElementCollection
     {
-        protected override ConfigurationElement CreateNewElement()
+        public new ActorConfigurationElement this[string name]
         {
-            return new ActorConfigurationElement();
-        }
-
-        protected override object GetElementKey(ConfigurationElement element)
-        {
-            return ((ActorConfigurationElement) element).Name;
+            get { return BaseGet(name) as ActorConfigurationElement; }
         }
 
         public void Add(ActorConfigurationElement actor)
@@ -19,9 +14,14 @@ namespace Loom.Esb.Configuration
             BaseAdd(actor);
         }
 
-        public new ActorConfigurationElement this[string name]
+        protected override ConfigurationElement CreateNewElement()
         {
-            get { return BaseGet(name) as ActorConfigurationElement; }
+            return new ActorConfigurationElement();
+        }
+
+        protected override object GetElementKey(ConfigurationElement element)
+        {
+            return ((ActorConfigurationElement)element).Name;
         }
     }
 }

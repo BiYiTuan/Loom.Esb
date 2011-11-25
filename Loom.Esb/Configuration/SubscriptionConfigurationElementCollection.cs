@@ -5,16 +5,6 @@ namespace Loom.Esb.Configuration
 
     public class SubscriptionConfigurationElementCollection : ConfigurationElementCollection, IEnumerable<SubscriptionConfigurationElement>
     {
-        protected override ConfigurationElement CreateNewElement()
-        {
-            return new SubscriptionConfigurationElement();
-        }
-
-        protected override object GetElementKey(ConfigurationElement element)
-        {
-            return ((SubscriptionConfigurationElement) element).Topic;
-        }
-
         public void Add(SubscriptionConfigurationElement subscription)
         {
             BaseAdd(subscription);
@@ -26,6 +16,16 @@ namespace Loom.Esb.Configuration
             {
                 yield return BaseGet(i) as SubscriptionConfigurationElement;
             }
+        }
+
+        protected override ConfigurationElement CreateNewElement()
+        {
+            return new SubscriptionConfigurationElement();
+        }
+
+        protected override object GetElementKey(ConfigurationElement element)
+        {
+            return ((SubscriptionConfigurationElement)element).Topic;
         }
     }
 }

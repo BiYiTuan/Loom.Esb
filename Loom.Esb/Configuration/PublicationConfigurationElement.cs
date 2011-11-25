@@ -8,7 +8,6 @@ namespace Loom.Esb.Configuration
 
         public PublicationConfigurationElement()
         {
-            
         }
 
         public PublicationConfigurationElement(string topic)
